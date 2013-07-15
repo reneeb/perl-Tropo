@@ -10,7 +10,7 @@ use XML::Simple;
 
 extends 'Tropo::RestAPI::Base';
 
-our $VERSION = 0.02;
+our $VERSION = 0.03;
 
 sub create {
     my ($self, %param) = @_;
@@ -21,13 +21,14 @@ sub create {
     
     $param{action} = 'create';
     
-    my $response = $self->ua->get(
-        $self->url . 'sessions',
+    my $session_url = $self->url . 'sessions';
+    my $response    = $self->ua->get(
+        $session_url,
         \%param,
     );
     
-    if ( $response ) {
-        $self->err( 'Cannot connect to ' . $self->url );
+    if ( !$response ) {
+        $self->err( 'Cannot connect to ' . $session_url );
         return;
     }
     
