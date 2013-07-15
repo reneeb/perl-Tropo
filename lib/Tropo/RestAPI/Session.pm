@@ -10,7 +10,7 @@ use XML::Simple;
 
 extends 'Tropo::RestAPI::Base';
 
-our $VERSION = 0.01;
+our $VERSION = 0.02;
 
 sub create {
     my ($self, %param) = @_;
@@ -22,7 +22,7 @@ sub create {
     $param{action} = 'create';
     
     my $response = $self->ua->get(
-        $self->url,
+        $self->url . 'sessions',
         \%param,
     );
     
@@ -42,6 +42,8 @@ sub create {
         $self->err( 'Tropo session launch failed!' );
         return;
     }
+    
+    return $data;
 }
 
 =head1 SYNOPSIS
