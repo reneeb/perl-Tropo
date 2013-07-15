@@ -1,5 +1,7 @@
 package Tropo::WebAPI::Call;
 
+# ABSTRACT: "Call" someone via Tropo API
+
 use strict;
 use warnings;
 
