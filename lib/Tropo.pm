@@ -12,6 +12,8 @@ use JSON;
 
 use overload '""' => \&json;
 
+our $VERSION = 0.01;
+
 has objects => (
     is      => 'rw',
     isa     => ArrayRef,

@@ -1,5 +1,7 @@
 package Tropo::RestAPI::Base;
 
+# ABSTRACT: Base class for REST-API part of Tropo
+
 use strict;
 use warnings;
 

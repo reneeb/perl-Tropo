@@ -1,5 +1,7 @@
 package Tropo::WebAPI::Base;
 
+# ABSTRACT: Base class for Web-API part of Tropo API
+
 use strict;
 use warnings;
 

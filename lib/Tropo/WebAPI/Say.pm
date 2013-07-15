@@ -1,5 +1,7 @@
 package Tropo::WebAPI::Say;
 
+# ABSTRACT: "Say" something with Tropo
+
 use strict;
 use warnings;
 
