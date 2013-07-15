@@ -20,7 +20,7 @@ has url => (
 
 has ua => (
     is      => 'ro',
-    isa     => InstanceOf['ĤTTP::Tiny'],
+    isa     => InstanceOf['HTTP::Tiny'],
     default => sub { HTTP::Tiny->new( agent => 'Perl Tropo API/' . $VERSION ) },
 );
 
