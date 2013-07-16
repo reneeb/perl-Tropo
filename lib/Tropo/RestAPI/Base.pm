@@ -8,7 +8,7 @@ use warnings;
 use Moo;
 
 use HTTP::Tiny;
-use Types::Standard qw(Str InstanceOf);
+use Types::Standard qw(Str InstanceOf Bool);
 use URI::Escape qw(uri_escape_utf8);
 
 our $VERSION = 0.03;
@@ -28,6 +28,12 @@ has ua => (
 has err => (
     is  => 'rw',
     isa => Str,
+);
+
+has redirect => (
+    is      => 'ro',
+    isa     => Bool,
+    default => sub { 0; },
 );
 
 sub get {

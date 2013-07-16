@@ -12,7 +12,7 @@ use JSON;
 
 use overload '""' => \&json;
 
-our $VERSION = 0.06;
+our $VERSION = 0.07;
 
 has objects => (
     is      => 'rw',

@@ -10,7 +10,7 @@ use XML::Simple;
 
 extends 'Tropo::RestAPI::Base';
 
-our $VERSION = 0.04;
+our $VERSION = 0.05;
 
 sub create {
     my ($self, %param) = @_;
@@ -21,7 +21,9 @@ sub create {
     
     $param{action} = 'create';
     
-    my $session_url = $self->url . 'sessions';
+    my $delim = substr( $self->url, -1 ) eq '/' ? '' : '/';
+    
+    my $session_url = $self->url . $delim . 'sessions';
     my $response    = $self->get(
         $session_url,
         \%param,
@@ -37,12 +39,17 @@ sub create {
         return;
     }
     
-    my $data = XMLin( $response->{content} );
-    
-    if ( $data->{success} ne 'true' ) {
+    if ( !$response->{content} ) {
         $self->err( 'Tropo session launch failed!' );
         return;
     }
+    
+    if ( !$self->redirect && $response->{url} !~ m{ \A \Q$session_url\E }xms ) {
+        $self->err( 'Reponse from differen URL as the request was sent to!' );
+        return;
+    }
+    
+    my $data = XMLin( $response->{content} );
     
     return $data;
 }
