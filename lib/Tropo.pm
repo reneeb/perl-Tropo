@@ -12,7 +12,7 @@ use JSON;
 
 use overload '""' => \&json;
 
-our $VERSION = 0.11;
+our $VERSION = 0.12;
 
 has objects => (
     is      => 'rw',
@@ -45,15 +45,24 @@ sub perl {
     my @objects;
     my $last_type = '';
     
-    for my $object ( @{ $self->objects } ) {
+    for my $index ( 0 .. $#{ $self->objects } ) {
+        my $object      = $self->objects->[$index];
+        my $next_object = $self->objects->[$index+1];
+
         my ($type,$obj) = %{ $object };
+        my ($next_type) = %{ $next_object || { '' => ''} };
         
-        if ( $type ne $last_type ) {
+        if ( $type ne $last_type && $type eq $next_type ) {
             push @objects, { $type => [ $obj->to_hash ] };
+        }
+        elsif ( $type ne $last_type && $type ne $next_type ) {
+            push @objects, { $type => $obj->to_hash };
         }
         else {
             push @{ $objects[-1]->{$type} }, $obj->to_hash;
         }
+
+        $last_type = $type;
     }
     
     my $data = {
