@@ -126,6 +126,11 @@ Creates this JSON output:
       ]
   }
 
+You can also chain the method calls:
+
+  my $tropo = Tropo->new;
+  print $tropo->call( to => $phone )->say ( 'hello' )->json;
+
 =head1 HOW THE TROPO API WORKS
 
 The Tropo server I<talks> with your web application via json sent with HTTP POST requests.
@@ -165,6 +170,8 @@ so that more commands will follow in the near future:
 A detailed description of all commands and their attributes can be found at
 L<http://www.developergarden.com/fileadmin/microsites/ApiProject/Dokumente/Dokumentation/Api_Doc_5_0/telekom-tropo-2.1/html/method_summary.html|DeveloperGarden>.
 
+Only C<on> can't be found there.
+
 =head1 EXAMPLES
 
 All examples can be found in the I<examples> directory of this distribution. Those examples
@@ -186,7 +193,7 @@ secret.
 I<televote.psgi>
 
 You can publish a phonenumber that is connected to your application (e.g. in developergardens
-application management).
+application management). The people call that number and are asked to "vote"...
 
 =head1 ACKNOWLEDGEMENT
 
