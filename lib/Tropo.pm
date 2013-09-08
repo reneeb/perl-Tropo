@@ -12,7 +12,7 @@ use JSON;
 
 use overload '""' => \&json;
 
-our $VERSION = 0.14;
+our $VERSION = 0.15;
 
 has objects => (
     is      => 'rw',
@@ -150,7 +150,11 @@ When you create a session you can pass any parameter you want. The only mandator
 is I<token>. You'll find that token in your developergarden account in the application management.
 
 The Tropo server then requests the URI that you added in the application management. It is an
-HTTP POST request that contains a session id and some more
+HTTP POST request that contains session data (the parameters that you passed, too). An example of
+the dumped request data can be found below.
+
+Your application has to send JSON data back to the Tropo server. In that JSON data you can define
+(see command I<on>) which URLs the Tropo server requests on specific events. 
 
 =head1 COMMANDS
 
@@ -194,6 +198,28 @@ I<televote.psgi>
 
 You can publish a phonenumber that is connected to your application (e.g. in developergardens
 application management). The people call that number and are asked to "vote"...
+
+=head1 MORE INFO
+
+Here you can find some detailed info that might help to debug your code.
+
+=head2 Session data sent from Tropo to your app
+
+    $VAR1 = {
+          'session' => {
+                       'userType' => 'NONE',
+                       'parameters' => {
+                                       'token' => 'your_api_token',
+                                       'action' => 'create',
+                                       'call_session' => 'zRlbp7UET5ecDcneDCnoB4'
+                                     },
+                       'callId' => undef,
+                       'initialText' => undef,
+                       'timestamp' => '2013-09-06T18:53:20.168Z',
+                       'accountId' => '9183',
+                       'id' => '9884f64erb41e97948083c25980d63683'
+                     }
+        };
 
 =head1 ACKNOWLEDGEMENT
 

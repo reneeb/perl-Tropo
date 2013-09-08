@@ -5,9 +5,7 @@ Change history for Tropo
 
   Added more documentation
   Added an example application
-  Supported tropo commands:
-    * say
-    * call
+  New supported tropo commands:
     * wait
     * on
     * ask
