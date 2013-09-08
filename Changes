@@ -1,0 +1,22 @@
+Change history for Tropo
+========================
+
+0.15
+
+  Added more documentation
+  Added an example application
+  Supported tropo commands:
+    * say
+    * call
+    * wait
+    * on
+    * ask
+
+  Each command now returns the tropo object -> commands can be chained
+
+0.13 
+
+  First non-developer release.
+  Supported tropo commands:
+    * say
+    * call
