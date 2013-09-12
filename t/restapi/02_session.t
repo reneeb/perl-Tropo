@@ -18,7 +18,7 @@ my $result = $session->create;
 ok !$result, 'Cannot create session - token missing';
 
 BAIL_OUT( 'Need support of client-side SNI (openssl >= 1.0.0)' )
-    if IO::Socket::SSL->can_client_sni();
+    if !IO::Socket::SSL->can_client_sni();
 
 if ( $ENV{http_proxy} ) {
     my @no_proxy = split /\s*,\s*/, $ENV{no_proxy} || '';
