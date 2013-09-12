@@ -4,6 +4,7 @@ use strict;
 use warnings;
 
 use Test::More;
+use IO::Socket::SSL;
 
 use_ok( 'Tropo::RestAPI::Session' );
 
@@ -15,6 +16,8 @@ isa_ok $session, 'Tropo::RestAPI::Session';
 my $result = $session->create;
 ok !$result, 'Cannot create session - token missing';
 
+BAIL_OUT( 'Need support of client-side SNI (openssl >= 1.0.0)' )
+    if IO::Socket::SSL->can_client_sni();
 
 $result = $session->create( token => $token );
 ok !$result, 'Cannot create session - invalid token';
