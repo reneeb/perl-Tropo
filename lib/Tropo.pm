@@ -21,7 +21,7 @@ has objects => (
 );
 
 for my $subname ( qw(call say ask on wait) ) {
-    my $name     = ucfirst $subname;
+    my $name     = join '', map{ ucfirst } split /_/, $subname;
     my @parts    = qw/Tropo WebAPI/;
     
     my $filename = path( @parts, $name . '.pm' );
@@ -55,10 +55,10 @@ sub perl {
         my ($next_type) = %{ $next_object || { '' => ''} };
 
         if ( $type ne $last_type && $type eq $next_type && $type ne 'on' ) {
-            push @objects, { $type => [ $obj->to_hash ] };
+            push @objects, { $type => [ $obj->to_perl ] };
         }
         elsif ( $type ne $last_type && $type ne $next_type || $type eq 'on' ) {
-            push @objects, { $type => $obj->to_hash };
+            push @objects, { $type => $obj->to_perl };
         }
         else {
             push @{ $objects[-1]->{$type} }, $obj->to_hash;

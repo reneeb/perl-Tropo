@@ -4,6 +4,7 @@ use strict;
 use warnings;
 
 use Test::More;
+use Test::Tropo;
 
 use_ok 'Tropo::WebAPI::Call';
 
@@ -18,5 +19,10 @@ eval {
     $call = Tropo::WebAPI::Call->new;
 } or $error = 'Missing "to"';
 is $error, 'Missing "to"';
+
+my @test_cases = (
+    {
+        input => {
+        },
 
 done_testing();

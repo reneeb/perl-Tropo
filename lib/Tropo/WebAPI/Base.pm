@@ -31,7 +31,7 @@ sub register {
     });
 }
 
-sub to_hash {
+sub to_perl {
     my ($self) = @_;
     
     my %hash;

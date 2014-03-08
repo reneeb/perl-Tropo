@@ -6,8 +6,8 @@ use strict;
 use warnings;
 
 use Moo;
-use Types::Standard qw(Int Str Bool ArrayRef Dict);
-use Type::Tiny;
+use Types::Standard qw(Int Str Bool ArrayRef Dict Num);
+use Tropo::TypeLibrary qw(:all);
 
 extends 'Tropo::WebAPI::Base';
 
@@ -15,48 +15,18 @@ Tropo::WebAPI::Base::register();
 
 our $VERSION = 0.01;
 
-has to => (
-    is       => 'ro',
-    isa      => Str,
-    required => 1,
-);
+has to              => ( is => 'ro', isa => StrOrStrArrayRef, required  => 1 );
+has from            => ( is => 'ro', isa => Str,              predicate => 1 );
+has answer_on_media => ( is => 'ro', isa => Bool,             predicate => 1 );
+has timeout         => ( is => 'ro', isa => Num,              predicate => 1 );
+has headers         => ( is => 'ro', isa => ArrayRef[Str],    predicate => 1 );  # TODO
+has recording       => ( is => 'ro', isa => Recording,        predicate => 1 );
+has allow_signals   => ( is => 'ro', isa => StrOrStrArrayRef, predicate => 1 );
 
-has from => (
-    is  => 'ro',
-    isa => Str,
-    exclude_from_json => 1,
-);
-
-has ['network', 'channel'] => (
-    is  => 'ro',
-    isa => Str,
-);
-
-has 'answer_on_media' => (
-    is  => 'ro',
-    isa => Bool,
-);
-
-has timeout => (
-    is  => 'ro',
-    isa => Int,
-);
-
-has headers => (
-    is  => 'ro',
-    isa => ArrayRef[Str],
-);
-
-has recording => (
-    is  => 'ro',
-    isa => Dict[
-        name => Str,
-    ],
-);
-
-has allow_signals => (
-    is  => 'ro',
-    isa => ArrayRef[],
+has ['network', 'channel', 'name'] => (
+    is        => 'ro',
+    isa       => Str,
+    predicate => 1,
 );
 
 sub BUILDARGS {
